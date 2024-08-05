@@ -19,6 +19,7 @@ export default function Note() {
       const response = await axios.get('http://localhost:6002/notes');
       if (response.status === 200) {
         setNotes(response.data.data);
+        console.log(response.data.data);
       }
     } catch (error) {
       console.error('Error fetching notes:', error);
@@ -51,14 +52,25 @@ export default function Note() {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (noteId) => {
     try {
-      const response = await axios.delete(`http://localhost:6002/notes/${currentNote._id}`);
-      fetchNotes();
+      console.log(`Attempting to delete note with ID: ${noteId}`);
+      const response = await axios.delete(`http://localhost:6002/notes/${noteId}`);
+      
+      if (response.status === 200) {
+        console.log('Note deleted successfully');
+        fetchNotes(); // Refresh the list of notes
+      } else {
+        console.error('Error deleting the note:', response.data.remark);
+      }
     } catch (error) {
       console.error('Error deleting the note:', error);
     }
   };
+  
+  
+  
+  
 
   const toggleArchive = async (noteId, isCurrentlyArchived) => {
     try {
