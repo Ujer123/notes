@@ -41,16 +41,19 @@ export default function Note() {
 
   const handleUpdate = async () => {
     try {
-      const updatedNote = { title, content, isArchived };
-      const response = await axios.put(`http://localhost:6002/notes/${currentNote._id}`, updatedNote);
-      if (response.status === 200) {
-        fetchNotes();
-        closeModal();
-      }
+        const updatedNote = { title, content, isArchived };
+        const response = await axios.put(`http://localhost:6002/notes/${currentNote._id}`, updatedNote);
+        if (response.status === 200) {
+            fetchNotes();
+            closeModal();
+        }
     } catch (error) {
-      console.error('Error updating the note:', error);
+        console.error('Error updating the note:', error);
     }
-  };
+};
+
+
+
 
   const handleDelete = async (noteId) => {
     try {
